@@ -8,7 +8,8 @@
 #      rails_direct_uploads POST /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  resources :users, only: [:new, :create, :show, :edit, :uptdate, :destroy]
+  root 'staticpages#home'
+  resources :users, only: [:new, :create, :show, :edit, :uptdate, :destroy, :index]
 
   resource :session, only: [:new, :create, :destroy]
 

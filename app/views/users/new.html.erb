@@ -1,27 +1,29 @@
 
 
-<header>Sign Up</header>
+
 <body>
   <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
           <div class="card-body">
-            <h5 class="card-title text-center">Sign In</h5>
+            <h5 class="card-title text-center">Sign Up</h5>
             
             <%= simple_form_for @user do |f| %>
-                <%= f.input :fullname %>
-                <%= f.input :age, collection: 14..100 %>
-                <%= f.input :email %>
-                <%= f.input :password %>
-                <%= f.input :city %>
+                <%= f.input :fname, label: 'First Name', required: true  %>
+                <%= f.input :lname, label: 'Last Name', required: true %>
+                <%= f.input :email, required: true  %>
+                <%= f.input :password, required: true  %>
+                <%= f.input :birthdate, required: true, as: :date, start_year: Time.now.year - 100, end_year: Time.now.year - 13 %>
+                <%= f.input :gender, collection: ['Male', 'Female', 'Other'], required: true  %>
+                <%= f.input :city, required: true  %>
                 <%= f.input :state, collection: [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ] %>
                 <%= f.input :country, priority: ["United States of America"] %>
 
-                <%= f.button :submit %>
+                <%= f.button :submit, label: 'Create User'%>
             <% end %>
             
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+              <%# <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Create User</button> %>
               <hr class="my-4">
               <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
               <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
@@ -32,15 +34,3 @@
     </div>
   </div>
 </body>
-
-<%= simple_form_for @user do |f| %>
-    <%= f.input :fullname %>
-    <%= f.input :age, collection: 14..100 %>
-    <%= f.input :email %>
-    <%= f.input :password %>
-    <%= f.input :city %>
-    <%= f.input :state, collection: [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ] %>
-    <%= f.input :country, priority: ["United States of America"] %>
-
-    <%= f.button :submit %>
-<% end %>

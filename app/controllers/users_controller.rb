@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
-        if @user.save!
+        if @user.save
             login!(@user)
         else
             flash[:errors] = @user.errors.full_messages
@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     end
 
     def show
+        @user = User.find_by(id: params[:id])
         render :show
     end
 
@@ -48,6 +49,6 @@ class UsersController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:email, :password, :fullname, :city, :state, :country, :age)
+        params.require(:user).permit(:email, :password, :fname, :lname, :birthdate, :city, :state, :country)
     end
 end

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
     def login!(user)
         session[:session_token] = user.reset_session_token!
-        
+        redirect_to users_url
     end
 
     def logout!

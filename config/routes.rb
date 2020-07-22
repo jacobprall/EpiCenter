@@ -9,7 +9,9 @@
 
 Rails.application.routes.draw do
   root 'staticpages#home'
-  resources :users, only: [:new, :create, :show, :edit, :uptdate, :destroy, :index]
+  resources :users, only: [:new, :create, :show, :edit, :update, :destroy, :index] do
+    resources :connections, only: [:create, :destroy, :show, :update]
+  end
 
   resource :session, only: [:new, :create, :destroy]
 

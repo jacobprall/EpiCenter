@@ -1,1 +1,54 @@
 
+<style>
+h1 {
+    text-align: center;
+}
+
+
+</style>
+
+<% if current_user.id == @user.id %>
+    <h1>Personal Feed</h1>
+
+
+
+
+
+
+
+
+
+    <% else %>
+    <h1><%= @user.fname + ' ' + @user.lname %>'s Page</h1>
+    <form action="<%= user_connections_url(current_user) %>" method="POST">
+    <label >Know <%= @user.fname + ' ' + @user.lname %>?</label>
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="connect[connected_id]" value="<%= @user.id %>">
+        <input type="hidden" name="connect[status]" value="0">
+        
+        <label>Relationship:
+            <label>Family
+                <input type="radio" value="0" name="connect[relationship]">
+            </label>
+            <label>Friend
+                <input type="radio" value="1" name="connect[relationship]">
+            </label>
+        </label>
+        <input type="submit" value="Add Connection">
+    </form>
+    
+
+
+
+
+
+
+
+
+
+
+
+<% end %>
+
+
+

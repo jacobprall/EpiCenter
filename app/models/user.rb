@@ -3,36 +3,48 @@
 # Table name: users
 #
 #  id              :bigint           not null, primary key
-#  age             :integer          not null
+#  bio             :text
+#  birthdate       :string           not null
 #  city            :string           not null
 #  country         :string           not null
 #  email           :string           not null
-#  fullname        :string           not null
+#  fname           :string           not null
+#  gender          :string           not null
+#  lname           :string           not null
 #  password_digest :string           not null
 #  session_token   :string
 #  state           :string
 #  created_at      :datetime         not null
-#  updated_at      :datetime         not null
 #
 # Indexes
 #
-#  index_users_on_fullname  (fullname)
+#  index_users_on_email            (email) UNIQUE
+#  index_users_on_lname            (lname)
+#  index_users_on_password_digest  (password_digest)
+#  index_users_on_session_token    (session_token)
 #
 class User < ApplicationRecord
     #validations
-    validates :email, :password_digest, :session_token, presence: true, uniqueness: true
+    validates :email, presence: true, uniqueness: true
     validates :password, length: { minimum: 6, allow_nil: true }
-    validates :fullname, presence: true, length: { minimum: 4, allow_nil: true } 
-    validates :city, :country, :state, presence: true, length: { minimum: 2, allow_nil: true }
-    validates :age, presence: true
+    validates :city, :country, :fname, :lname, :gender, :birthdate, presence: true
+    
     #associations and attr methods
     attr_reader :password
+
+    has_many :connects,
+    foreign_key: :user_id,
+    class_name: :Connection
+
+    has_many :connections,
+    through: :connects,
+    source: :connected
 
     #after initialize
     after_initialize :ensure_session_token
 
     #########
-    #SPIRE
+    #Auth
 
     def self.find_by_credentials(email, pw)
         user = User.find_by(email: email)
@@ -57,7 +69,8 @@ class User < ApplicationRecord
     def ensure_session_token
         self.session_token ||= SecureRandom::urlsafe_base64 
     end
-
     #######
     
+    
+
 end

@@ -1,51 +1,33 @@
+<p id="notice"><%= notice %></p>
 
-<style>
-    /* .left-column {
-        display: block;
-        float: left;
-        
-    }
-      .feed {
-        display: block;
-        float: left;
-    }
-      .left-column {
-        display: block;
-        float: left;
-    } */
-    h1 {
-        text-align: center;
-    }
-    .main {
-        display: flex;
-        justify-content: space-around;
-    }
-        /* .left-column {
-        display: flex;
-        justify-content: flex-start;
-        
-    }
-      .feed {
-        display: flex;
-        justify-content: center;
-    }
-      .left-column {
-       display: flex;
-        justify-content: flex-end;
-    } */
+<h1>Users</h1>
 
-</style>
-<h1>User Home Page</h1>
-<div class="main">
-    <div class="left-column">
-        <p>Connections</p>
-    </div>
+<table>
+  <thead>
+    <tr>
+      <th>Fname</th>
+      <th>Lname</th>
+      <th>Email</th>
+      <th>Bio</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-    <div class="feed"> 
-        <h3>Feed</h3>
-    </div>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.fname %></td>
+        <td><%= user.lname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.bio%></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-    <div class="right-column">
-        <p>News</p>
-    </div>
-</div>
+<br>
+
+<%= link_to 'New User', new_user_path %>

@@ -1,76 +1,66 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :bigint           not null, primary key
-#  bio             :text
-#  birthdate       :string           not null
-#  city            :string           not null
-#  country         :string           not null
-#  email           :string           not null
-#  fname           :string           not null
-#  gender          :string           not null
-#  lname           :string           not null
-#  password_digest :string           not null
-#  session_token   :string
-#  state           :string
-#  created_at      :datetime         not null
-#
-# Indexes
-#
-#  index_users_on_email            (email) UNIQUE
-#  index_users_on_lname            (lname)
-#  index_users_on_password_digest  (password_digest)
-#  index_users_on_session_token    (session_token)
-#
-class User < ApplicationRecord
-    #validations
-    validates :email, presence: true, uniqueness: true
-    validates :password, length: { minimum: 6, allow_nil: true }
-    validates :city, :country, :fname, :lname, :gender, :birthdate, presence: true
-    
-    #associations and attr methods
-    attr_reader :password
+class User 
+  include Neo4j::ActiveNode
+  #Properties
+  property :fname, type: String
+  property :lname, type: String
+  property :email, type: String
+  property :pass_digest, type: String
+  property :session_token, type: String 
+  property :dob
+  property :age, type: Integer 
+  property :gender, type: String 
+  property :city, type: String 
+  property :state, type: String 
+  property :country, type: String 
+  property :bio, type: String 
+  id_property :user_id, on: :email
 
-    has_many :connects,
-    foreign_key: :user_id,
-    class_name: :Connection
+  after_initialize :ensure_session_token
+  # after_validation :set_age
+  attr_reader :password
+  #validations
+  validates :fname, :lname, :pass_digest, :session_token, :dob, :gender, :city, :country, presence: true
+  validates :email, uniqueness: true
+  validates :password, length: { minimum: 6, allow_nil: true }
+  
+  #Associations
+  # has_many :both, :connections, type: :connection, rel_class: :Connection
 
-    has_many :connections,
-    through: :connects,
-    source: :connected
 
-    #after initialize
-    after_initialize :ensure_session_token
+  #Auth
 
-    #########
-    #Auth
-
-    def self.find_by_credentials(email, pw)
-        user = User.find_by(email: email)
-        user && user.is_password?(pw) ? user : nil
+  def self.find_by_credentials(email, pw)
+    @user = User.find_by(email: email)
+    if @user && @user.is_password?(pw)
+      @user 
+    else
+      nil
     end
+  end
 
-    def password=(pw)
-        @password = pw 
-        self.password_digest = BCrypt::Password.create(pw)
-    end
+  def password=(pw)
+    @password = pw
+    self.pass_digest = BCrypt::Password.create(pw)
+  end
 
-    def is_password?(pw)
-        BCrypt::Password.new(self.password_digest).is_password?(pw)
-    end
+  def is_password?(pw)
+    BCrypt::Password.new(self.pass_digest).is_password?(pw)
+  end
 
-    def reset_session_token!
-        self.session_token = SecureRandom::urlsafe_base64 
-        self.save!
-        self.session_token
-    end
+  def reset_session_token!
+    self.session_token = SecureRandom::urlsafe_base64
+    self.save
+    self.session_token
+  end
 
-    def ensure_session_token
-        self.session_token ||= SecureRandom::urlsafe_base64 
-    end
-    #######
-    
-    
+  def ensure_session_token 
+    self.session_token ||= SecureRandom::urlsafe_base64
+  end
+
+  # def set_age 
+  #   # self.age = ((Time.zone.now - self.dob.to_time) / 1.year.seconds).floor
+  #   age = Date.today.year - self.dob.year
+  #   age -= 1 if Date.today < self.dob.day + age.years #for days before birthday
+  # end
 
 end

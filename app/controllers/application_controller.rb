@@ -15,13 +15,13 @@ class ApplicationController < ActionController::Base
 
   def login!(user)
     session[:session_token] = user.reset_session_token!
-    redirect_to users_url
+
   end
 
   def logout!
+    current_user.reset_session_token! 
     session[:session_token] = nil 
-    @current_user.reset_session_token! 
     @current_user = nil;
-    redirect_to new_session_url
+
   end
 end

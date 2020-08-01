@@ -6,18 +6,19 @@ class User
   property :email, type: String
   property :pass_digest, type: String
   property :session_token, type: String 
-  property :dob
+  property :dob, type: String
   property :age, type: Integer 
   property :gender, type: String 
   property :city, type: String 
   property :state, type: String 
   property :country, type: String 
   property :bio, type: String 
-  id_property :user_id, on: :email
-
+  
+  include Neo4j::Timestamps::Created # will give model created_at timestamp
+  
   after_initialize :ensure_session_token
   # after_validation :set_age
-  attr_reader :password
+  attr_reader :password, :current_status
   #validations
   validates :fname, :lname, :pass_digest, :session_token, :dob, :gender, :city, :country, presence: true
   validates :email, uniqueness: true
@@ -25,7 +26,8 @@ class User
   
   #Associations
   # has_many :both, :connections, type: :connection, rel_class: :Connection
-
+ 
+  has_many :in, :updates, origin: :user
 
   #Auth
 
@@ -55,6 +57,10 @@ class User
 
   def ensure_session_token 
     self.session_token ||= SecureRandom::urlsafe_base64
+  end
+
+  def current_status
+    @current_status = self.updates[0]
   end
 
   # def set_age 

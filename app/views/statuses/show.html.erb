@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Last tested:</strong>
+  <%= @status.last_tested %>
+</p>
+
+<p>
+  <strong>Date,:</strong>
+  <%= @status.date, %>
+</p>
+
+<p>
+  <strong>Last test result:</strong>
+  <%= @status.last_test_result %>
+</p>
+
+<p>
+  <strong>Integer,:</strong>
+  <%= @status.integer, %>
+</p>
+
+<p>
+  <strong>Curr status:</strong>
+  <%= @status.curr_status %>
+</p>
+
+<p>
+  <strong>Integer,:</strong>
+  <%= @status.integer, %>
+</p>
+
+<p>
+  <strong>Curr health:</strong>
+  <%= @status.curr_health %>
+</p>
+
+<p>
+  <strong>Integer,:</strong>
+  <%= @status.integer, %>
+</p>
+
+<p>
+  <strong>Next test:</strong>
+  <%= @status.next_test %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @status.date %>
+</p>
+
+<%= link_to 'Edit', edit_status_path(@status) %> |
+<%= link_to 'Back', statuses_path %>

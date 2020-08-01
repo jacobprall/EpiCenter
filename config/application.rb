@@ -13,6 +13,8 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
+require 'neo4j/core/cypher_session/adaptors/http'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -27,9 +29,14 @@ module Epicentre01
 
     # Configure where to connect to the Neo4j DB
     # Note that embedded db is only available for JRuby
-    # config.neo4j.session.type = :http
-    # config.neo4j.session.url = 'http://localhost:7474'
+    config.neo4j.session.type = :http
+    config.neo4j.session.url = 'http://localhost:7474'
+    #  config.neo4j.session.options = {faraday_options: { ssl: { verify: true }}}
     #  or
+    faraday_configurator = proc do |faraday|
+      faraday.adapter :typhoeus
+    end
+    http_adaptor = Neo4j::Core::CypherSession::Adaptors::HTTP.new('http://neo4j:pass@localhost:7474', faraday_configurator: faraday_configurator)
     # config.neo4j.session.type = :bolt
     # config.neo4j.session.url = 'bolt://localhost:7687'
     #  or

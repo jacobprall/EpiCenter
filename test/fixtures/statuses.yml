@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  last_tested: MyString
+  date,: MyString
+  last_test_result: MyString
+  integer,: MyString
+  curr_status: MyString
+  integer,: MyString
+  curr_health: MyString
+  integer,: MyString
+  next_test: MyString
+  date: MyString
+
+two:
+  last_tested: MyString
+  date,: MyString
+  last_test_result: MyString
+  integer,: MyString
+  curr_status: MyString
+  integer,: MyString
+  curr_health: MyString
+  integer,: MyString
+  next_test: MyString
+  date: MyString

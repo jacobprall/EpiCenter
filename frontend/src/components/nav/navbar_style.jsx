@@ -1,24 +1,20 @@
-import React from "react";
-import styled from "styled-components";
+// import React from "react";
+// import styled from "styled-components";
 
-export const Header = header.styled`
+// export const Header = styled.header``;
 
-`
+// export const Logo = styled.h1``;
 
-export const Logo = h1.styled`
+// export const LogoImage = styled.img``;
 
-`
+// export const NavToggleInput = styled.input``;
 
-export const LogoImage = img.styled``;
+// export const NavContainer = styled.nav``;
 
-export const NavToggleInput = input.styled``;
+// export const LinkList = styled.ul``;
 
-export const NavContainer = nav.styled``;
+// export const LinkItem = styled.li``;
 
-export const LinkList = ul.styled``;
+// export const SignInButton = styled.button``;
 
-export const LinkItem = li.styled``;
-
-export const SignInButton = button.styled``;
-
-export const NavToggleLabel = label.styled``;
+// export const NavToggleLabel = styled.label``;

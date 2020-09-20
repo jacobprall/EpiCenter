@@ -58,7 +58,13 @@ export default function SignUp() {
     const currentUser = {
       email: email,
       password: password,
+      first_name: firstName,
+      last_name: lastName,
+      city,
+      state,
+      age,
     };
+    console.log(currentUser);
     dispatch(signup(currentUser));
   };
   return (
@@ -75,6 +81,7 @@ export default function SignUp() {
             placeholder="Last Name"
             onChange={update("lastName")}
           />
+          <Input type="text" placeholder="Email" onChange={update("email")} />
           <Input type="text" placeholder="City" onChange={update("city")} />
           <Input type="text" placeholder="State" onChange={update("state")} />
 

@@ -4,7 +4,7 @@ import { Switch } from "react-router-dom";
 import NavBar from "./nav/navbar";
 import Login from "./session/login";
 import SignUp from "./session/sign_up";
-import '../../assets/stylesheets/style.scss'
+import '../assets/stylesheets/style.scss'
 import SplashPage from "./splash/splash_page";
 // import LoginFormContainer from "./session/login_form_container";
 // import SignupFormContainer from "./session/signup_form_container";
@@ -12,7 +12,6 @@ import SplashPage from "./splash/splash_page";
 const App = () => (
   <div>
     <NavBar />
-
     <Switch>
       <AuthRoute exact path="/" component={SplashPage} />
       <AuthRoute exact path="/login" component={Login} />

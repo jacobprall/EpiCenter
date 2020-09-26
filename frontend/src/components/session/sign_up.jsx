@@ -67,37 +67,51 @@ export default function SignUp() {
     console.log(currentUser);
     dispatch(signup(currentUser));
   };
+  const errors = useSelector((state) => state.errors.session);
+  console.log(errors)
+  const renderErrors = () => {
+    return (
+      <ul className="errors-list">
+        {Object.values(errors).map((error) => (
+          <li className="errors">{error}</li>
+        ))}
+      </ul>
+    );
+  };
   return (
-    <Container>
-      <Form onSubmit={handleSubmit}>
-        <Inputs>
-          <Input
-            type="text"
-            placeholder="First Name"
-            onChange={update("firstName")}
-          />
-          <Input
-            type="text"
-            placeholder="Last Name"
-            onChange={update("lastName")}
-          />
-          <Input type="text" placeholder="Email" onChange={update("email")} />
-          <Input type="text" placeholder="City" onChange={update("city")} />
-          <Input type="text" placeholder="State" onChange={update("state")} />
+    <div className="session-container">
+      <div className="session-outline">
+        <form onSubmit={handleSubmit}>
+          <div className="inputs">
+            <input
+              type="text"
+              placeholder="First Name"
+              onChange={update("firstName")}
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              onChange={update("lastName")}
+            />
+            <input type="text" placeholder="Email" onChange={update("email")} />
+            <input type="text" placeholder="City" onChange={update("city")} />
+            <input type="text" placeholder="State" onChange={update("state")} />
 
-          <Input type="number" placeholder="Age" onChange={update("age")} />
+            <input type="number" placeholder="Age" onChange={update("age")} />
 
-          <Input
-            type="password"
-            placeholder="Password"
-            onChange={update("password")}
-          />
-        </Inputs>
-        <Buttons>
-          <LoginAndSignup>Sign Up</LoginAndSignup>
-          <LoginAndSignup onClick={setDemoUser}>Demo User</LoginAndSignup>
-        </Buttons>
-      </Form>
-    </Container>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={update("password")}
+            />
+          </div>
+          <div className="session-btns">
+            <button>Sign Up</button>
+            <button onClick={setDemoUser}>Demo User</button>
+          </div>
+          {renderErrors()}
+        </form>
+      </div>
+    </div>
   );
 }

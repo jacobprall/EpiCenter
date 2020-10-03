@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   Update.find()
     .sort({ date: -1 })
     .then((updates) => res.json(updates))
-    .catch((err) => res.status(404).json({ nopostsfound: "No Posts Found" }));
+    .catch((err) => res.status(404).json({ noPostsFound: "No Posts Found" }));
 });
 
 router.get("/user/:user_id", (req, res) => {

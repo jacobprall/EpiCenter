@@ -46,10 +46,16 @@ const UserSchema = new Schema(
         ref: "Connections",
       },
     ],
+    pending: [
+      {
+        type: ObjectId,
+        ref: "Connections",
+      }
+    ],
     updates: [
       {
         type: ObjectId,
-        ref: "Post",
+        ref: "Updates",
       },
     ],
   },

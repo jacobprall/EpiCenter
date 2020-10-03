@@ -1,5 +1,17 @@
+@import './connections.scss';
+
 .home-container {
-  background: blue;
+  display: flex;
   width: 100vw;
   height: 100vh;
+  justify-content: space-around;
+  align-items: center;
 }
+
+.center-home {
+  border: 1px solid black;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+}
+

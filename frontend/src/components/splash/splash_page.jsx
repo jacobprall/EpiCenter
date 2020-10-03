@@ -27,7 +27,9 @@ const SplashPage = function () {
             </p>
           </div>
           <div className="cta">
-            <Link className="cta-learn" to="/signup">Sign Up</Link>
+            <Link className="cta-learn" to="/signup">
+              Sign Up
+            </Link>
             {/* <Link onClick={handleLogout} className="cta-learn" to="/">
               Logout
             </Link> */}

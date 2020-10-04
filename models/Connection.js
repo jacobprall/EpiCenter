@@ -2,16 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ConnectionSchema = new Schema({
-  user_1: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "users",
   },
-  user_2: {
-    type: Schema.Types.ObjectId,
-    ref: "users",
-  },
-  type: {
-    type: String,
+  family: {
+    type: Boolean,
     required: true,
   },
   date: {
@@ -19,8 +15,11 @@ const ConnectionSchema = new Schema({
     default: Date.now,
   },
   accepted: {
-    type: Boolean
-  }
+    type: Boolean,
+  },
+  pending: {
+    type: Boolean,
+  },
 });
 
 module.exports = Connection = mongoose.model("Connection", ConnectionSchema);

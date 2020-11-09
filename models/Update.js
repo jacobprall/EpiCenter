@@ -2,17 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UpdateSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "users",
-  },
   status: {
     type: String,
     required: true,
   },
   last_test: {
-    type: String,
+    type: Date,
     required: false,
+  },
+  last_test_result: {
+    type: Boolean,
+    required: false
   },
   next_test: {
     type: String,

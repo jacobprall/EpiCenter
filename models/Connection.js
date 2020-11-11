@@ -2,9 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ConnectionSchema = new Schema({
+  user_id: {
+    type: Schema.Types.ObjectId, 
+    required: true
+  },
+  connection_id: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   family: {
     type: Boolean,
-    required: true,
+    required: [true, 'Select Family or Friend'],
   },
   date: {
     type: Date,
@@ -12,6 +20,7 @@ const ConnectionSchema = new Schema({
   },
   pending: {
     type: Boolean,
+    default: true
   },
 });
 

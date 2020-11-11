@@ -24,15 +24,15 @@ const UserSchema = new Schema(
     },
     city: {
       type: String,
-      required: true,
+      required: [true, "City Required"],
     },
     state: {
       type: String,
-      required: true,
+      required: [true, "State Required"],
     },
     age: {
       type: Number,
-      required: true,
+      required: [true, "Age Required"]
     },
     status: [
       {
@@ -40,6 +40,9 @@ const UserSchema = new Schema(
         required: false,
       },
     ],
+    last_test: {
+      type: Date
+    },
     connections: [
       {
         type: ObjectId,
@@ -48,7 +51,7 @@ const UserSchema = new Schema(
     ],
     updates: [
       {
-        type: ObjectId,
+        type: Object,
         ref: "Updates",
       },
     ],

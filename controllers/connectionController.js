@@ -1,4 +1,4 @@
-// const User = require("../../../../models/User");
+const User = require("../../../../models/User");
 // const Connection = require("../../../../models/Connection");
 
 // function checkForRequest (user, target) {

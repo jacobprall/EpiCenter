@@ -6,21 +6,23 @@ const Connection = require("../../models/Connection");
 const user = require("./route_helpers/user");
 require("../../config/passport")(passport);
 
+const UserController = require('../../controllers/userController')
+// const {
+//   registerCallback,
+//   loginCallback,
+//   currentUserCallback,
+// } = require("./route_helpers/user");
 
-const {
-  registerCallback,
-  loginCallback,
-  currentUserCallback,
-} = require("./route_helpers/user");
 
-router.post("/register", (req, res) => registerCallback(req, res));
-router.post("/login", (req, res) => loginCallback(req, res));
+
+router.post("/register", (req, res) => UserController.register(req, res));
+router.post("/login", (req, res) => UserController.login(req, res));
 router.get(
   "/current",
   passport.authenticate("jwt", {
     session: false,
   }),
-  currentUserCallback
+  UserController.currentUser
 );
 
 

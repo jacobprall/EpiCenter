@@ -5,8 +5,8 @@ module.exports = function validateUpdateInput(data) {
 
   data.text = validText(data.text) ? data.text : "";
 
-  if (!Validator.isLength(data.text, { min: 5, max: 140 })) {
-    errors.text = "Update must be between 5 and 140 characters";
+  if (!Validator.isLength(data.text, { min: 0, max: 140 })) {
+    errors.text = "Update must be between 0 and 140 characters";
   }
 
   if (Validator.isEmpty(data.text)) {

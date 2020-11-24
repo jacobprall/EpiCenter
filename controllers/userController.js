@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const User = require("../models/User");
 const validateLoginInput = require("../validation/login");
+const validateRegisterInput = require("../validation/register")
 const EXPIRES_IN_SECONDS = 3600;
 
 exports.currentUser = (req, res) => {
@@ -10,6 +11,7 @@ exports.currentUser = (req, res) => {
     id: req.user.id,
     email: req.user.email,
   });
+  res.json(user);
 };
 
 exports.login = (req, res) => {

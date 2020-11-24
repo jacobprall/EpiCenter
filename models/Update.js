@@ -24,8 +24,12 @@ const UpdateSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
+  user_id: {
+    type: Schema.Types.ObjectId,
+    required: true
+  }
 });
 
 module.exports = Update = mongoose.model("Update", UpdateSchema);

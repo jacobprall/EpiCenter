@@ -9,13 +9,11 @@ exports.postUpdate = async (req, res) => {
     return res.status(400).json(errors);
   }
   try {
-    const newUpdate = await Update.create(req.body);
-
-    User.findById(req.user.id).then((user) => {
-      user.updates.unshift(newUpdate);
-      user.save();
-    });
-    res.json({ update: newUpdate });
+    const newUpdate = await Update.create(Object.assign(req.body, {user_id: req.user.id}));
+    const user = await User.findById(req.user.id);
+    user.updates.unshift(newUpdate);
+    await user.save();
+    res.json({ newUpdate });
   } catch (err) {
     res.json(err);
   }
@@ -23,11 +21,21 @@ exports.postUpdate = async (req, res) => {
 
 // delete Update
 
-exports.deleteUpdate = (req, res) => {
-  // remove from user update array?
-  Update.findById(req.params.update_id)
-    .then((update) => update.deleteOne())
-    .then(() => res.json({ status: "Deleted Update" }));
+exports.deleteUpdate = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const oldUpdate = await Update.findById(req.params.update_id);
+    // remove from user array
+    const newUpdates = user.updates.filter((update) => {
+      return String(update._id) !== String(oldUpdate._id);
+    });
+    user.updates = newUpdates;
+    await Update.deleteOne({ _id: oldUpdate._id });
+    await user.save();
+    res.json({ oldUpdate });
+  } catch (err) {
+    res.json(err)
+  }
 };
 
 // Get Feed of Updates
@@ -43,7 +51,7 @@ exports.getFeed = (req, res) => {
 // Get specific users updates
 exports.getUsersUpdates = (req, res) => {
   User.findById(req.params.user_id)
-    .then((user) => res.json(user))
+    .then((user) => res.json(user.updates))
     // Update.find({ user: req.params.user_id })
     //   .then((updates) => {
     //     res.json(updates)

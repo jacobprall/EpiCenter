@@ -2,25 +2,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ConnectionSchema = new Schema({
-  user_id: {
-    type: Schema.Types.ObjectId, 
-    required: true
-  },
-  connection_id: {
+  requester_id: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+  },
+  requestee_id: {
+    type: Schema.Types.ObjectId,
+    required: true,
   },
   family: {
     type: Boolean,
-    required: [true, 'Select Family or Friend'],
+    required: [true, "Select Family or Friend"],
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
   pending: {
     type: Boolean,
-    default: true
+    default: true,
   },
 });
 

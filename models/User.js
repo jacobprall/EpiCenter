@@ -45,7 +45,7 @@ const UserSchema = new Schema(
     },
     connections: [
       {
-        type: ObjectId,
+        type: Object,
         ref: "Connections",
       },
     ],

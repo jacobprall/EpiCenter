@@ -6,14 +6,12 @@ const Connection = require("../../models/Connection");
 const user = require("./route_helpers/user");
 require("../../config/passport")(passport);
 
-const UserController = require('../../controllers/userController')
+const UserController = require("../../controllers/userController");
 // const {
 //   registerCallback,
 //   loginCallback,
 //   currentUserCallback,
 // } = require("./route_helpers/user");
-
-
 
 router.post("/register", (req, res) => UserController.register(req, res));
 router.post("/login", (req, res) => UserController.login(req, res));
@@ -24,8 +22,16 @@ router.get(
   }),
   UserController.currentUser
 );
-
-
+router.get(
+  "/logout",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  function (req, res) {
+    req.logOut();
+    res.json({ message: "logged out" });
+  }
+);
 
 
 module.exports = router;
